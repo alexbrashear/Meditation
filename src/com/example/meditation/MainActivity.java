@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -97,10 +98,11 @@ public class MainActivity extends Activity {
 				// make call and mute participant
 				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
-				phoneCallIntent.setData(Uri.parse("tel:2156960263"));
+				phoneCallIntent.setData(Uri.parse("tel:3015021117"));
 				myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
 				myAudioManager.setMicrophoneMute(mute);
 				startActivity(phoneCallIntent);
+				launchUser(view);
 
 			}
 
@@ -128,7 +130,20 @@ public class MainActivity extends Activity {
 	}
 	
 	public void launchUser(View view) {
-		startActivity(new Intent(this, UserActivity.class));
+		Handler h = new Handler();
+		Runnable r = new MyRunnable(this);
+		h.postDelayed(r, 5000);
+		
+	}
+	private class MyRunnable implements Runnable {
+		private Activity activity;
+		
+		public MyRunnable(Activity activity) {
+			this.activity = activity;
+		}
+		public void run() {
+			startActivity(new Intent(activity, UserActivity.class));
+		}
 	}
 
 }
