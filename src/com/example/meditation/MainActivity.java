@@ -1,19 +1,16 @@
 package com.example.meditation;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.telephony.PhoneStateListener;
@@ -43,6 +40,7 @@ public class MainActivity extends Activity {
 					Log.i(TAG, "OFFHOOK");
 
 					phoneCalling = true;
+					
 				}
 
 				// When the call ends launch the main activity again
@@ -67,6 +65,10 @@ public class MainActivity extends Activity {
 
 				}
 			}
+			
+			public boolean getPhoneStatus(){
+				return phoneCalling;
+			}
 		}
 		
 	@Override
@@ -86,7 +88,6 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View view) {
-
 				// find out which radio option was selected
 				boolean mute = false;
 				RadioGroup group = (RadioGroup) findViewById(R.id.radioUser);
@@ -94,8 +95,9 @@ public class MainActivity extends Activity {
 				if (selectedId == 0) mute = true;
 				
 				// make call and mute participant
-				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
-				phoneCallIntent.setData(Uri.parse("tel:7576930722"));
+				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
+				phoneCallIntent.setData(Uri.parse("tel:2156960263"));
 				myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
 				myAudioManager.setMicrophoneMute(mute);
 				startActivity(phoneCallIntent);
@@ -123,6 +125,10 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void launchUser(View view) {
+		startActivity(new Intent(this, UserActivity.class));
 	}
 
 }
