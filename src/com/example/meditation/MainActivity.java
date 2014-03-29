@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
 					Log.i(TAG, "OFFHOOK");
 
 					phoneCalling = true;
+					
 				}
 
 				// When the call ends launch the main activity again
@@ -63,6 +64,10 @@ public class MainActivity extends Activity {
 					}
 
 				}
+			}
+			
+			public boolean getPhoneStatus(){
+				return phoneCalling;
 			}
 		}
 		
@@ -114,6 +119,10 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void launchConference(View view) {
+		startActivity(new Intent(this, ConferenceActivity.class));
 	}
 
 }
