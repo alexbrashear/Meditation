@@ -93,7 +93,7 @@ public class MainActivity extends Activity {
 				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
 				phoneCallIntent.setData(Uri.parse("tel:7576930722"));
 				myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
-				myAudioManager.setStreamSolo(AudioManager.STREAM_VOICE_CALL, true);
+				myAudioManager.setMicrophoneMute(true);
 				startActivity(phoneCallIntent);
 
 			}
