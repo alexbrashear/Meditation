@@ -2,6 +2,6 @@ package com.example.meditation;
 
 import android.app.Activity;
 
-public class ConferenceActivity extends Activity {
+public class UserActivity extends Activity {
 
 }

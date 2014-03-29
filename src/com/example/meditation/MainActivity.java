@@ -124,8 +124,8 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void launchConference(View view) {
-		startActivity(new Intent(this, ConferenceActivity.class));
+	public void launchUser(View view) {
+		startActivity(new Intent(this, UserActivity.class));
 	}
 
 }
