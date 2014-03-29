@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,8 @@ import android.telephony.TelephonyManager;
 
 public class MainActivity extends Activity {
 
+	private AudioManager myAudioManager;
+	
 	// monitor phone call states
 	private class PhoneCallListener extends PhoneStateListener {
 
@@ -87,8 +90,10 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 
-				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
+				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
 				phoneCallIntent.setData(Uri.parse("tel:7576930722"));
+				myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
+				myAudioManager.setStreamSolo(AudioManager.STREAM_VOICE_CALL, true);
 				startActivity(phoneCallIntent);
 
 			}
