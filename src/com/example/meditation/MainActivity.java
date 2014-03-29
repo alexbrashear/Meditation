@@ -14,13 +14,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 public class MainActivity extends Activity {
 
 	// monitor phone call states
-		private class PhoneCallListener extends PhoneStateListener {
+	private class PhoneCallListener extends PhoneStateListener {
 
 			String TAG = "LOGGING PHONE CALL";
 
@@ -75,6 +76,10 @@ public class MainActivity extends Activity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		
+		
+		RadioGroup group = (RadioGroup) findViewById(R.id.radioUser);
+		int selectedId = group.getCheckedRadioButtonId();
+		
 		Button button = (Button) findViewById(R.id.button);
 
 		PhoneCallListener phoneCallListener = new PhoneCallListener();
@@ -88,7 +93,7 @@ public class MainActivity extends Activity {
 			public void onClick(View view) {
 
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
-				phoneCallIntent.setData(Uri.parse("tel:123456"));
+				phoneCallIntent.setData(Uri.parse("tel:7576930722"));
 				startActivity(phoneCallIntent);
 
 			}

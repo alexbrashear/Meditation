@@ -9,19 +9,20 @@
     tools:context="com.example.meditation.MainActivity$PlaceholderFragment" >
 
 <RadioGroup
+    android:id="@+id/radioUser"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <RadioButton android:id="@+id/radio_student"
+    <RadioButton android:id="@+id/radio_participant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Student"
+        android:checked="true"
+        android:text="Participant"
         android:onClick="onRadioButtonClicked"/>
-    <RadioButton android:id="@+id/radio_teacher"
+    <RadioButton android:id="@+id/radio_instructor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Teacher"
-        android:onClick="onRadioButtonClicked"/>
+        android:text="Instructor"/>
 </RadioGroup>
 
     <Button
@@ -30,7 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="134dp"
-        android:text="call in to class" />
+        android:layout_marginTop="134dp"/>
 
 </RelativeLayout>
