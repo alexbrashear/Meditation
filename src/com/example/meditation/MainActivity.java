@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
 		RadioGroup group = (RadioGroup) findViewById(R.id.radioUser);
 		int selectedId = group.getCheckedRadioButtonId();
 		
-		Button button = (Button) findViewById(R.id.button);
+		/*Button button = (Button) findViewById(R.id.button);
 
 		PhoneCallListener phoneCallListener = new PhoneCallListener();
 		TelephonyManager telManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
 
 			}
 
-		});
+		});*/
 	}
 
 	@Override
