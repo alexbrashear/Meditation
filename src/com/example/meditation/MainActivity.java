@@ -73,10 +73,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		
-		RadioGroup group = (RadioGroup) findViewById(R.id.radioUser);
-		int selectedId = group.getCheckedRadioButtonId();
+				
 		
 		Button button = (Button) findViewById(R.id.button);
 
@@ -90,10 +87,17 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 
+				// find out which radio option was selected
+				boolean mute = false;
+				RadioGroup group = (RadioGroup) findViewById(R.id.radioUser);
+				int selectedId = group.getCheckedRadioButtonId();
+				if (selectedId == 0) mute = true;
+				
+				// make call and mute participant
 				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
 				phoneCallIntent.setData(Uri.parse("tel:7576930722"));
 				myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
-				myAudioManager.setMicrophoneMute(true);
+				myAudioManager.setMicrophoneMute(mute);
 				startActivity(phoneCallIntent);
 
 			}
