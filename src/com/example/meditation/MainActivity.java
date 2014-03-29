@@ -1,18 +1,16 @@
 package com.example.meditation;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.telephony.PhoneStateListener;
@@ -20,6 +18,8 @@ import android.telephony.TelephonyManager;
 
 public class MainActivity extends Activity {
 
+	private AudioManager myAudioManager;
+	
 	// monitor phone call states
 	private class PhoneCallListener extends PhoneStateListener {
 
@@ -92,8 +92,11 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 
+				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
-				phoneCallIntent.setData(Uri.parse("tel:7576930722"));
+				phoneCallIntent.setData(Uri.parse("tel:2156960263"));
+				myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
+				myAudioManager.setMicrophoneMute(true);
 				startActivity(phoneCallIntent);
 
 			}
