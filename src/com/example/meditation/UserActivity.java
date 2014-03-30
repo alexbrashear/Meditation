@@ -14,4 +14,9 @@ public class UserActivity extends Activity {
         setContentView(R.layout.activity_user);
 	}
 
+	public void addKeyListener() {
+		custom_q = (EditText) findViewById(R.id.custom_q);
+		
+	}
+	
 }
