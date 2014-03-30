@@ -101,8 +101,8 @@ public class MainActivity extends Activity {
 				phoneCallIntent.setData(Uri.parse("tel:3015021117"));
 				myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
 				myAudioManager.setMicrophoneMute(mute);
-				startActivity(phoneCallIntent);
 				launchUser(view);
+				startActivity(phoneCallIntent);
 
 			}
 
