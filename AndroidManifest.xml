@@ -30,6 +30,7 @@
         
         <activity android:name="UserActivity" />
         <activity android:name="InstructorActivity" />
+        <activity android:name="ViewResults" />
     </application>
 
 </manifest>

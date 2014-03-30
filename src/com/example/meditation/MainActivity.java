@@ -20,6 +20,7 @@ import android.telephony.TelephonyManager;
 public class MainActivity extends Activity {
 
 	private AudioManager myAudioManager;
+	private Activity self;
 	
 	// monitor phone call states
 	private class PhoneCallListener extends PhoneStateListener {
@@ -53,13 +54,7 @@ public class MainActivity extends Activity {
 
 						Log.i(TAG, "restart app");
 
-						// restart app
-						Intent i = getBaseContext().getPackageManager()
-								.getLaunchIntentForPackage(
-										getBaseContext().getPackageName());
-
-						i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						startActivity(i);
+						startActivity(new Intent(self, ViewResultsActivity.class));
 
 						phoneCalling = false;
 					}
@@ -75,6 +70,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		self = this;
 		setContentView(R.layout.activity_main);
 				
 		
@@ -103,7 +99,6 @@ public class MainActivity extends Activity {
 				//myAudioManager.setMicrophoneMute(mute);
 				//myAudioManager.setMicrophoneMute(false);
 				startActivity(phoneCallIntent);
-
 			}
 
 		});
