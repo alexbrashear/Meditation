@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 				if (TelephonyManager.CALL_STATE_OFFHOOK == state) {
 					// active
 					Log.i(TAG, "OFFHOOK");
-
+					launchUser();
 					phoneCalling = true;
 					
 				}
@@ -102,7 +102,6 @@ public class MainActivity extends Activity {
 				myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
 				//myAudioManager.setMicrophoneMute(mute);
 				myAudioManager.setMicrophoneMute(false);
-				launchUser(view);
 				startActivity(phoneCallIntent);
 
 			}
@@ -130,7 +129,7 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void launchUser(View view) {
+	public void launchUser() {
 		Handler h = new Handler();
 		Runnable r = new MyRunnable(this);
 		h.postDelayed(r, 5000);
