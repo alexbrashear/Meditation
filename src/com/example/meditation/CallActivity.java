@@ -2,6 +2,7 @@ package com.example.meditation;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
+import com.parse.PushService;
 
 import android.app.Activity;
 import android.content.Context;
@@ -92,14 +93,18 @@ public class CallActivity extends Activity {
 				// find out which radio option was selected
 				RadioGroup group = (RadioGroup) findViewById(R.id.radioUser);
 				int selectedId = group.getCheckedRadioButtonId();
-				boolean mute = (selectedId == 0);
+				
+				boolean participant = selectedId == 0;
+				if (!participant) {
+					PushService.subscribe(getBaseContext(), "Giants", ViewResultsActivity.class);
+				}
 				
 				// make call and mute participant
 				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
 				phoneCallIntent.setData(Uri.parse("tel:3015021117"));
 				//myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
-				//myAudioManager.setMicrophoneMute(mute);
+				//myAudioManager.setMicrophoneMute(participant);
 				//myAudioManager.setMicrophoneMute(false);
 				startActivity(phoneCallIntent);
 			}
