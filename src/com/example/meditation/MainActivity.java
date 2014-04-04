@@ -90,10 +90,9 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// find out which radio option was selected
-				boolean mute = false;
 				RadioGroup group = (RadioGroup) findViewById(R.id.radioUser);
 				int selectedId = group.getCheckedRadioButtonId();
-				if (selectedId == 0) mute = true;
+				boolean mute = (selectedId == 0);
 				
 				// make call and mute participant
 				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
