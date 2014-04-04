@@ -96,7 +96,7 @@ public class CallActivity extends Activity {
 				
 				boolean participant = selectedId == 0;
 				if (!participant) {
-					PushService.subscribe(getBaseContext(), "Giants", ViewResultsActivity.class);
+					PushService.subscribe(getBaseContext(), "Questions", ViewResultsActivity.class);
 				}
 				
 				// make call and mute participant
