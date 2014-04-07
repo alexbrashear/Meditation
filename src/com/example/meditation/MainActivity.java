@@ -3,10 +3,6 @@ package com.example.meditation;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
-import com.parse.ParseObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

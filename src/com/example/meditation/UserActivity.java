@@ -1,6 +1,6 @@
 package com.example.meditation;
 
-import com.parse.ParseObject;
+import com.parse.ParsePush;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,11 +27,10 @@ public class UserActivity extends Activity {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (event.getAction() == KeyEvent.ACTION_DOWN && 
 						keyCode == KeyEvent.KEYCODE_ENTER) {
-					//we should push this question (custom_q.getText()) onto the server
-					//now it's just a meaningless toast
-					ParseObject question = new ParseObject("Question");
-					question.put("text", custom_q.getText());
-					question.saveInBackground();
+					ParsePush push = new ParsePush();
+					push.setChannel("Question");
+					push.setMessage(custom_q.getText().toString());
+					push.sendInBackground();
 					Toast.makeText(UserActivity.this, custom_q.getText(), Toast.LENGTH_LONG).show();
 					return true;
 				}
