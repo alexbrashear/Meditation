@@ -58,7 +58,7 @@ public class CallActivity extends Activity {
 						Log.i(TAG, "restart app");
 
 						startActivity(new Intent(self, ViewResultsActivity.class));
-
+						
 						phoneCalling = false;
 					}
 
@@ -74,9 +74,7 @@ public class CallActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		self = this;
-		setContentView(R.layout.activity_main);
-		Parse.initialize(this, "E6UyOjr7jeVe9BJCO1WdCU96os1j5vHw8YnSFUXG", "V5ySNKCxjCwY8C24agPPmA23p65QRIceRc8GKlho");
-				
+		setContentView(R.layout.activity_main);				
 		
 		Button button = (Button) findViewById(R.id.button);
 
@@ -90,14 +88,11 @@ public class CallActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// find out which radio option was selected
-				RadioGroup group = (RadioGroup) findViewById(R.id.radioUser);
-				int selectedId = group.getCheckedRadioButtonId();
-				boolean mute = (selectedId == 0);
 				
 				// make call and mute participant
 				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
-				phoneCallIntent.setData(Uri.parse("tel:3015021117"));
+				phoneCallIntent.setData(Uri.parse("tel:7576930722"));
 				//myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
 				//myAudioManager.setMicrophoneMute(mute);
 				//myAudioManager.setMicrophoneMute(false);

@@ -11,13 +11,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class UserActivity extends Activity {
-	
+	public static Activity ua;
 	private EditText custom_q;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        ua = this;
 	}
 
 	public void addKeyListener() {

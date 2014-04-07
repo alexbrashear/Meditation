@@ -8,29 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.meditation.MainActivity$PlaceholderFragment" >
 
-<RadioGroup
-    android:id="@+id/radioUser"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <RadioButton android:id="@+id/radio_participant"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="Participant"/>
-    <RadioButton android:id="@+id/radio_instructor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Instructor"/>
-</RadioGroup>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="134dp"
-        android:text="call in to class" />
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:text="You have successfully completed the class" />
 
 </RelativeLayout>
