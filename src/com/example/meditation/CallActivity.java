@@ -96,7 +96,7 @@ public class CallActivity extends Activity {
 				// make call and mute participant
 				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
-				phoneCallIntent.setData(Uri.parse("tel:7576930722"));
+				phoneCallIntent.setData(Uri.parse("tel:8477089465"));
 				//myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
 				//myAudioManager.setMicrophoneMute(participant);
 				//myAudioManager.setMicrophoneMute(false);
