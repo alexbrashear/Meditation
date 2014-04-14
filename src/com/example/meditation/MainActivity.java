@@ -1,8 +1,10 @@
 package com.example.meditation;
 
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
