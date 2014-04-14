@@ -1,6 +1,6 @@
 package com.example.meditation;
 
-import com.parse.ParsePush;
+import com.parse.ParseObject;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -26,10 +26,9 @@ public class UserActivity extends Activity {
 		if (event.getAction() == KeyEvent.ACTION_DOWN && 
 				event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
 			Log.e("question: ", custom_q.getText().toString());
-			ParsePush push = new ParsePush();
-			push.setChannel("Question");
-			push.setMessage(custom_q.getText().toString());
-			push.sendInBackground();
+			ParseObject q = new ParseObject("Question");
+			q.add("text", custom_q.getText().toString());
+			q.saveInBackground();
 			Toast.makeText(UserActivity.this, custom_q.getText(), Toast.LENGTH_LONG).show();
 			custom_q.setText("");
 		}
