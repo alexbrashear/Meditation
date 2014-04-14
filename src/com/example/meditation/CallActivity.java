@@ -1,8 +1,5 @@
 package com.example.meditation;
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
-import com.parse.ParseObject;
-import com.parse.PushService;
+import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
@@ -44,7 +41,18 @@ public class CallActivity extends Activity {
 				if (TelephonyManager.CALL_STATE_OFFHOOK == state) {
 					// active
 					Log.i(TAG, "OFFHOOK");
-					launchUser();
+					ParseUser user = ParseUser.getCurrentUser();
+					if (user != null) {
+						if (user.getBoolean("Instructor")) {
+							launchUser();
+						} else {
+							startActivity(new Intent(self, InstructorActivity.class));
+						}
+					} else {
+						Toast toast = Toast.makeText(getApplicationContext(), "Error: not logged in", Toast.LENGTH_SHORT);
+				    	toast.show();
+					}
+					
 					phoneCalling = true;
 					
 				}
@@ -87,16 +95,11 @@ public class CallActivity extends Activity {
 		button.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View view) {
-				// find out which radio option was selected
-				//if (!participant) {
-				//	PushService.subscribe(getBaseContext(), "Questions", ViewResultsActivity.class);
-				//}
-				
+			public void onClick(View view) {				
 				// make call and mute participant
 				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
-				phoneCallIntent.setData(Uri.parse("tel:7576930722"));
+				phoneCallIntent.setData(Uri.parse("tel:8477089465"));
 				//myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
 				//myAudioManager.setMicrophoneMute(participant);
 				//myAudioManager.setMicrophoneMute(false);
