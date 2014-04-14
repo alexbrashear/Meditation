@@ -43,10 +43,10 @@ public class CallActivity extends Activity {
 					Log.i(TAG, "OFFHOOK");
 					ParseUser user = ParseUser.getCurrentUser();
 					if (user != null) {
-						if (user.getBoolean("Instructor")) {
-							launchUser();
+						if (!user.getBoolean("Instructor")) {
+							launchUser(UserActivity.class);
 						} else {
-							startActivity(new Intent(self, InstructorActivity.class));
+							launchUser(InstructorActivity.class);
 						}
 					} else {
 						Toast toast = Toast.makeText(getApplicationContext(), "Error: not logged in", Toast.LENGTH_SHORT);
@@ -129,20 +129,22 @@ public class CallActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void launchUser() {
+	public void launchUser(Class c) {
 		Handler h = new Handler();
-		Runnable r = new MyRunnable(this);
-		h.postDelayed(r, 5000);
+		Runnable r = new MyRunnable(this, c);
+		h.postDelayed(r, 1000);
 		
 	}
 	private class MyRunnable implements Runnable {
 		private Activity activity;
+		private Class c;
 		
-		public MyRunnable(Activity activity) {
+		public MyRunnable(Activity activity, Class c) {
 			this.activity = activity;
+			this.c = c;
 		}
 		public void run() {
-			startActivity(new Intent(activity, UserActivity.class));
+			startActivity(new Intent(activity, c));
 		}
 	}
 

@@ -10,6 +10,7 @@ import com.parse.ParseException;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
@@ -17,6 +18,11 @@ public class InstructorView extends View {
 
 	public InstructorView(Context context) {
 		super(context);
+		init();
+	}
+	
+	public InstructorView(Context context, AttributeSet as) {
+		super(context, as);
 		init();
 	}
 	
@@ -54,14 +60,13 @@ public class InstructorView extends View {
 			                Log.e("Brand", "Retrieved " + question.get("text"));
 		                }
 		            } else {
-		                Log.e("Brand", "Error: " + e.getMessage());
+		                //Log.e("Brand", "Error: " + e.getMessage());
 		            }
-
+					
+					invalidate();
+					new QuestionThread().execute();
 		        }
 		    });
-			
-			invalidate();
-			new QuestionThread().execute();
 		}
 		
 	}
