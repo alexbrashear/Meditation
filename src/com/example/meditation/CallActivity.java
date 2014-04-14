@@ -2,6 +2,7 @@ package com.example.meditation;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.parse.PushService;
 
 import android.app.Activity;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
@@ -44,7 +46,18 @@ public class CallActivity extends Activity {
 				if (TelephonyManager.CALL_STATE_OFFHOOK == state) {
 					// active
 					Log.i(TAG, "OFFHOOK");
-					launchUser();
+					ParseUser user = ParseUser.getCurrentUser();
+					if (user != null) {
+						if (user.getBoolean("Instructor")) {
+							launchUser();
+						} else {
+							startActivity(new Intent(self, InstructorActivity.class));
+						}
+					} else {
+						Toast toast = Toast.makeText(getApplicationContext(), "Error: not logged in", Toast.LENGTH_SHORT);
+				    	toast.show();
+					}
+					
 					phoneCalling = true;
 					
 				}
