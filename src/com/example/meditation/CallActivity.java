@@ -4,7 +4,6 @@ import com.parse.ParseUser;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,7 +19,6 @@ import android.telephony.TelephonyManager;
 
 public class CallActivity extends Activity {
 
-	private AudioManager myAudioManager;
 	private Activity self;
 	
 	// monitor phone call states
@@ -99,7 +97,7 @@ public class CallActivity extends Activity {
 			@Override
 			public void onClick(View view) {				
 				// make call and mute participant
-				myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+				//myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
 				phoneCallIntent.setData(Uri.parse("tel:8477089465"));
 				//myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
@@ -131,7 +129,7 @@ public class CallActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void launchUser(Class c) {
+	public void launchUser(Class<?> c) {
 		Handler h = new Handler();
 		Runnable r = new MyRunnable(this, c);
 		h.postDelayed(r, 1000);
@@ -139,9 +137,9 @@ public class CallActivity extends Activity {
 	}
 	private class MyRunnable implements Runnable {
 		private Activity activity;
-		private Class c;
+		private Class<?> c;
 		
-		public MyRunnable(Activity activity, Class c) {
+		public MyRunnable(Activity activity, Class<?> c) {
 			this.activity = activity;
 			this.c = c;
 		}
