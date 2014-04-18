@@ -11,7 +11,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 public class InstructorView extends View {
