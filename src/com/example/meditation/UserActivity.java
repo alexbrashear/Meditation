@@ -21,45 +21,6 @@ public class UserActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         ua = this;
-        //set pain button
-        final Button pain = (Button) findViewById(R.id.pain_button);
-        pain.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Log.e("question: ", "I am experiencing a pain when I do this.");
-				ParseObject q = new ParseObject("Question");
-				q.add("text", "I am experiencing a pain when I do this.");
-				q.saveInBackground();
-				Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
-			}
-		});
-        //set slow button
-        final Button slow = (Button) findViewById(R.id.slow_button);
-        slow.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Log.e("question: ", "Can you please slow down a little?");
-				ParseObject q = new ParseObject("Question");
-				q.add("text", "Can you please slow down a little?");
-				q.saveInBackground();
-				Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
-			}
-		});
-        //set repeat button
-        final Button rep = (Button) findViewById(R.id.repeat_button);
-        rep.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Log.e("question: ", "We have already talked about this last week.");
-				ParseObject q = new ParseObject("Question");
-				q.add("text", "We have already talked about this last week.");
-				q.saveInBackground();
-				Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
-			}
-		});
 	}
 
 	@Override
@@ -78,7 +39,16 @@ public class UserActivity extends Activity {
 		return super.dispatchKeyEvent(event);
 	}
 	
-	public void sendToInstructor(View view) {
+	public void sendToInstructor (View v) {
+		Button b = (Button) v;
+		Log.e("question: ", b.getText().toString());
+		ParseObject q = new ParseObject("Question");
+		q.add("text", b.getText().toString());
+		q.saveInBackground();
+		Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
+	}
+	
+	public void sendCustomQToInstructor (View view) {
 		custom_q = (EditText) findViewById(R.id.custom_q);
 		Log.e("question: ", custom_q.getText().toString());
 		ParseObject q = new ParseObject("Question");
