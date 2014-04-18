@@ -28,10 +28,9 @@ public class UserActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.e("question: ", "I am experiencing a pain when I do this.");
-				ParsePush push = new ParsePush();
-				push.setChannel("Question");
-				push.setMessage("I am experiencing a pain when I do this.");
-				push.sendInBackground();
+				ParseObject q = new ParseObject("Question");
+				q.add("text", "I am experiencing a pain when I do this.");
+				q.saveInBackground();
 				Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
 			}
 		});
@@ -42,10 +41,9 @@ public class UserActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.e("question: ", "Can you please slow down a little?");
-				ParsePush push = new ParsePush();
-				push.setChannel("Question");
-				push.setMessage("Can you please slow down a little?");
-				push.sendInBackground();
+				ParseObject q = new ParseObject("Question");
+				q.add("text", "Can you please slow down a little?");
+				q.saveInBackground();
 				Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
 			}
 		});
@@ -56,10 +54,9 @@ public class UserActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.e("question: ", "We have already talked about this last week.");
-				ParsePush push = new ParsePush();
-				push.setChannel("Question");
-				push.setMessage("We have already talked about this last week.");
-				push.sendInBackground();
+				ParseObject q = new ParseObject("Question");
+				q.add("text", "We have already talked about this last week.");
+				q.saveInBackground();
 				Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
 			}
 		});
@@ -84,13 +81,11 @@ public class UserActivity extends Activity {
 	public void sendToInstructor(View view) {
 		custom_q = (EditText) findViewById(R.id.custom_q);
 		Log.e("question: ", custom_q.getText().toString());
-		ParsePush push = new ParsePush();
-		push.setChannel("Question");
-		push.setMessage(custom_q.getText().toString());
-		push.sendInBackground();
+		ParseObject q = new ParseObject("Question");
+		q.add("text", custom_q.getText().toString());
+		q.saveInBackground();
 		Toast.makeText(UserActivity.this, custom_q.getText(), Toast.LENGTH_LONG).show();
-		custom_q.setText("");
-		
+		custom_q.setText("");			
 	}
 	
 }
