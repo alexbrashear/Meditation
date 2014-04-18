@@ -149,5 +149,15 @@ public class CallActivity extends Activity {
 			startActivity(new Intent(activity, c));
 		}
 	}
+	
+	public void quitApp(View v) {
+		finish();
+	}
+	
+	@Override
+	public void finish(){
+		ParseUser.logOut();
+		super.finish();
+	}
 
 }
