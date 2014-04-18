@@ -5,6 +5,16 @@
     android:orientation="vertical"
     android:background = "@drawable/beach" >
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="92dp"
+        android:gravity="center"
+        android:text="@string/app_title"
+        android:typeface="serif"
+        android:textSize="25sp" >
+
+    </TextView>
+	    
 	    <EditText
 	        android:id="@+id/username"
 	        android:hint="username"
