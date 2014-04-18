@@ -1,8 +1,6 @@
 package com.example.meditation;
 
 import com.parse.ParseObject;
-import com.parse.ParsePush;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,21 +39,22 @@ public class UserActivity extends Activity {
 	
 	public void sendToInstructor (View v) {
 		Button b = (Button) v;
-		Log.e("question: ", b.getText().toString());
-		ParseObject q = new ParseObject("Question");
-		q.add("text", b.getText().toString());
-		q.saveInBackground();
+		sendQuestion(b.getText().toString());
 		Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
 	}
 	
 	public void sendCustomQToInstructor (View view) {
 		custom_q = (EditText) findViewById(R.id.custom_q);
-		Log.e("question: ", custom_q.getText().toString());
-		ParseObject q = new ParseObject("Question");
-		q.add("text", custom_q.getText().toString());
-		q.saveInBackground();
+		sendQuestion(custom_q.getText().toString());
 		Toast.makeText(UserActivity.this, custom_q.getText(), Toast.LENGTH_LONG).show();
 		custom_q.setText("");			
+	}
+	
+	public void sendQuestion(String text) {
+		Log.e("question: ", text);
+		ParseObject q = new ParseObject("Question");
+		q.add("text", text);
+		q.saveInBackground();
 	}
 	
 }
