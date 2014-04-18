@@ -1,8 +1,6 @@
 package com.example.meditation;
 
 import com.parse.ParseObject;
-import com.parse.ParsePush;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
