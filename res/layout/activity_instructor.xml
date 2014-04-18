@@ -3,9 +3,16 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/questions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ems="10" >
+
+    </TextView>
+
     <com.example.meditation.InstructorView
         android:id="@+id/instructorView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
 </LinearLayout>

@@ -56,9 +56,12 @@ public class InstructorView extends View {
 		        public void done(List<ParseObject> questions,
 		                ParseException e) {
 		            if (e == null) {
+		            	StringBuilder q = new StringBuilder();
 		                for (ParseObject question : questions) {
-			                Log.e("Brand", "Retrieved " + question.get("text"));
+			                q.append(question.get("text"));
+			                q.append("\n");
 		                }
+		                ((InstructorActivity) getContext()).getQuestions().setText(q.toString());
 		            } else {
 		                //Log.e("Brand", "Error: " + e.getMessage());
 		            }
