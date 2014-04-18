@@ -26,10 +26,7 @@ public class UserActivity extends Activity {
 		custom_q = (EditText) findViewById(R.id.custom_q);
 		if (event.getAction() == KeyEvent.ACTION_DOWN && 
 				event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-			Log.e("question: ", custom_q.getText().toString());
-			ParseObject q = new ParseObject("Question");
-			q.add("text", custom_q.getText().toString());
-			q.saveInBackground();
+			sendQuestion(custom_q.getText().toString());
 			Toast.makeText(UserActivity.this, custom_q.getText(), Toast.LENGTH_LONG).show();
 			custom_q.setText("");
 		}
