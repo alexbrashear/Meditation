@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
                                     if (temp) {text = "instructor";}
                                     else      {text = "participant";}
                                     Toast.makeText(getApplicationContext(),
-                                            "Successfully Logged in as " + text,
+                                            "Successfully logged in as " + text,
                                             Toast.LENGTH_LONG).show();
                                     finish();
                                 } else {
@@ -74,39 +74,7 @@ public class MainActivity extends Activity {
                             }
                         });
             }
-        });
-
-		
-	}
-	
-	public void loginAttemptButton(View view) throws ParseException {
-		
-		ParseUser.logInInBackground(username.getText().toString(), 
-				password.getText().toString(), new LogInCallback() {
-			  public void done(ParseUser user, ParseException e) {
-			    if (user != null) {
-			      // Hooray! The user is logged in.
-			    	Context context = getApplicationContext();
-			    	CharSequence text = "YAEA BETCHES";
-			    	int duration = Toast.LENGTH_SHORT;
-
-			    	Toast toast = Toast.makeText(context, text, duration);
-			    	toast.show();
-			    	startActivity(new Intent(MainActivity.this, CallActivity.class));
-			    	finish();
-
-			    } else {
-			      // Signup failed. Look at the ParseException to see what happened
-			    	Context context = getApplicationContext();
-			    	CharSequence text = "Hello toast!";
-			    	int duration = Toast.LENGTH_SHORT;
-
-			    	Toast toast = Toast.makeText(context, text, duration);
-			    	toast.show();
-			    }
-			  }
-			});
-		
+        });	
 	}
 
 }

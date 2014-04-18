@@ -65,7 +65,12 @@ public class CallActivity extends Activity {
 					if (phoneCalling) {
 
 						Log.i(TAG, "restart app");
-
+						//exiting user activities
+						if (UserActivity.ua != null) {
+							UserActivity.ua.finish();
+						} else if (InstructorActivity.ia != null){
+							InstructorActivity.ia.finish();
+						}
 						startActivity(new Intent(self, ViewResultsActivity.class));
 						
 						phoneCalling = false;
@@ -74,9 +79,6 @@ public class CallActivity extends Activity {
 				}
 			}
 			
-			public boolean getPhoneStatus(){
-				return phoneCalling;
-			}
 		}
 		
 	@Override
@@ -146,6 +148,16 @@ public class CallActivity extends Activity {
 		public void run() {
 			startActivity(new Intent(activity, c));
 		}
+	}
+	
+	public void quitApp(View v) {
+		finish();
+	}
+	
+	@Override
+	public void finish(){
+		ParseUser.logOut();
+		super.finish();
 	}
 
 }

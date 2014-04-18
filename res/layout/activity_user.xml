@@ -14,25 +14,27 @@
         android:id="@+id/pain_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I am experiencing a pain when I do this." />
+        android:text="I am experiencing a pain when I do this."
+        android:onClick="sendToInstructor"/>
 
     <Button
         android:id="@+id/slow_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Can you please slow down a little?" />
+        android:text="Can you please slow down a little?"
+        android:onClick="sendToInstructor"/>
 
     <Button
         android:id="@+id/repeat_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="We have already talked about this last week." />
+        android:text="We have already talked about this last week." 
+        android:onClick="sendToInstructor"/>
 
     <EditText
         android:id="@+id/custom_q"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.19"
         android:ems="10" />
 
     <Button
@@ -40,6 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send To Instructor" 
-        android:onClick="sendToInstructor"/>
+        android:onClick="sendCustomQToInstructor"/>
 
 </LinearLayout>

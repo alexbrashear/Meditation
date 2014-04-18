@@ -21,48 +21,6 @@ public class UserActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         ua = this;
-        //set pain button
-        final Button pain = (Button) findViewById(R.id.pain_button);
-        pain.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Log.e("question: ", "I am experiencing a pain when I do this.");
-				ParsePush push = new ParsePush();
-				push.setChannel("Question");
-				push.setMessage("I am experiencing a pain when I do this.");
-				push.sendInBackground();
-				Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
-			}
-		});
-        //set slow button
-        final Button slow = (Button) findViewById(R.id.slow_button);
-        slow.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Log.e("question: ", "Can you please slow down a little?");
-				ParsePush push = new ParsePush();
-				push.setChannel("Question");
-				push.setMessage("Can you please slow down a little?");
-				push.sendInBackground();
-				Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
-			}
-		});
-        //set repeat button
-        final Button rep = (Button) findViewById(R.id.repeat_button);
-        rep.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Log.e("question: ", "We have already talked about this last week.");
-				ParsePush push = new ParsePush();
-				push.setChannel("Question");
-				push.setMessage("We have already talked about this last week.");
-				push.sendInBackground();
-				Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
-			}
-		});
 	}
 
 	@Override
@@ -81,16 +39,23 @@ public class UserActivity extends Activity {
 		return super.dispatchKeyEvent(event);
 	}
 	
-	public void sendToInstructor(View view) {
+	public void sendToInstructor (View v) {
+		Button b = (Button) v;
+		Log.e("question: ", b.getText().toString());
+		ParseObject q = new ParseObject("Question");
+		q.add("text", b.getText().toString());
+		q.saveInBackground();
+		Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
+	}
+	
+	public void sendCustomQToInstructor (View view) {
 		custom_q = (EditText) findViewById(R.id.custom_q);
 		Log.e("question: ", custom_q.getText().toString());
-		ParsePush push = new ParsePush();
-		push.setChannel("Question");
-		push.setMessage(custom_q.getText().toString());
-		push.sendInBackground();
+		ParseObject q = new ParseObject("Question");
+		q.add("text", custom_q.getText().toString());
+		q.saveInBackground();
 		Toast.makeText(UserActivity.this, custom_q.getText(), Toast.LENGTH_LONG).show();
-		custom_q.setText("");
-		
+		custom_q.setText("");			
 	}
 	
 }
