@@ -1,5 +1,6 @@
 package com.example.meditation;
 
+import java.util.Date;
 import java.util.List;
 
 import com.parse.FindCallback;
@@ -11,10 +12,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class InstructorView extends View {
 
+	private Date questionCutoffTime;
+	
 	public InstructorView(Context context) {
 		super(context);
 		init();
@@ -26,7 +30,13 @@ public class InstructorView extends View {
 	}
 	
 	private void init() {
+		resetCutoff();
+		((InstructorActivity) getContext()).setView(this);
 		new QuestionThread().execute();
+	}
+	
+	public void resetCutoff() {
+		questionCutoffTime = new Date();
 	}
 
 	public void onDraw(Canvas c) {
@@ -40,7 +50,7 @@ public class InstructorView extends View {
 		 */
 		protected Void doInBackground(Void... params) {
 			try {
-				Thread.sleep(30);
+				Thread.sleep(10);
 			} catch (InterruptedException e) { }
 			return null;
 		}
@@ -56,16 +66,23 @@ public class InstructorView extends View {
 		                ParseException e) {
 		            if (e == null) {
 		            	StringBuilder q = new StringBuilder();
+		            	int counter = 0;
 		                for (ParseObject question : questions) {
-			                q.append(question.get("text"));
-			                q.append("\n");
+			                
+		                	if (question.getCreatedAt().after(questionCutoffTime)) {
+				                q.append(question.get("text"));
+				                q.append("\n");
+				                counter++;
+		                	}
 		                }
+		                //Log.e("Activity", "Still running with " + counter + " questions pulled");
 		                ((InstructorActivity) getContext()).getQuestions().setText(q.toString());
 		            } else {
 		                //Log.e("Brand", "Error: " + e.getMessage());
 		            }
 					
 					invalidate();
+					Log.e("Activity", "This is executing!");
 					new QuestionThread().execute();
 		        }
 		    });

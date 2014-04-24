@@ -3,6 +3,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:onClick="clearQuestions"/>
+
     <TextView
         android:id="@+id/questions"
         android:layout_width="match_parent"
@@ -15,4 +22,5 @@
         android:id="@+id/instructorView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

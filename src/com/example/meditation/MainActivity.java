@@ -56,10 +56,7 @@ public class MainActivity extends Activity {
                                             MainActivity.this,
                                             CallActivity.class);
                                     startActivity(intent);
-                                    boolean temp = user.getBoolean("Instructor");
-                                    String text;
-                                    if (temp) {text = "instructor";}
-                                    else      {text = "participant";}
+                                    String text =  user.getBoolean("Instructor") ? "instructor" : "participant";
                                     Toast.makeText(getApplicationContext(),
                                             "Successfully logged in as " + text,
                                             Toast.LENGTH_LONG).show();
@@ -67,7 +64,7 @@ public class MainActivity extends Activity {
                                 } else {
                                     Toast.makeText(
                                             getApplicationContext(),
-                                            "No such user exist, please signup",
+                                            "No such user exists, please signup",
                                             Toast.LENGTH_LONG).show();
                                 }
                             }
