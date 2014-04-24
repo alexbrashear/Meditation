@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class InstructorActivity extends Activity {
 	public static Activity ia;
@@ -28,6 +29,10 @@ public class InstructorActivity extends Activity {
 	
 	public void setView(InstructorView aView) {
 		mView = aView;
+	}
+	
+	public TextView getTimeSince() {
+		return (TextView) findViewById(R.id.time_since);
 	}
 	
 	public void clearQuestions(View v) {

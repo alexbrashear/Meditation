@@ -13,7 +13,7 @@
     <string name="question_4">I\'m confused.</string>
     <string name="question_5">We have already covered this.</string>
     <string name="send_custom">Submit question</string>
-    <string name="clear">Clear</string>
+    <string name="clear">Refresh</string>
     <string name="begin_call">Begin call</string>
     <string name="exit">Exit</string>
     <string name="custom_hint">Ask your own question</string>

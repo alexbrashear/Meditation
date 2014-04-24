@@ -4,24 +4,27 @@
     android:orientation="vertical"
     android:background = "@drawable/texture" >
 
-    <Button
-        android:id="@+id/clearButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/clear"
-        android:onClick="clearQuestions"/>
-
     <ListView
         android:id="@+id/builtinQuestions"
         android:layout_width="match_parent"
-        android:layout_height="203dp" >
-    </ListView>
-
+        android:layout_height="203dp" />
+    <TextView 
+        android:id="@+id/time_since"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:typeface="sans"
+        android:gravity="center" />
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:typeface="sans"
+        android:text="@string/clear"
+        android:onClick="clearQuestions"/>
     <ListView
         android:id="@+id/customQuestions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content" />
 
     <com.example.meditation.InstructorView
         android:id="@+id/instructorView"
