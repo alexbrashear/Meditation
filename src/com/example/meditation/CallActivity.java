@@ -96,13 +96,13 @@ public class CallActivity extends Activity {
 
 			@Override
 			public void onClick(View view) {				
-				// make call and mute participant
-				//myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
-				phoneCallIntent.setData(Uri.parse("tel:8477089465"));
-				//myAudioManager.setMode(AudioManager.MODE_IN_CALL); 
-				//myAudioManager.setMicrophoneMute(participant);
-				//myAudioManager.setMicrophoneMute(false);
+				ParseUser user = ParseUser.getCurrentUser();
+				if (user.getBoolean("Instructor")) {
+					phoneCallIntent.setData(Uri.parse("tel:7124321212,,716176623#,,*,,1603#"));
+				} else {
+					phoneCallIntent.setData(Uri.parse("tel:7124321212,,716176623#,,"));
+				}
 				startActivity(phoneCallIntent);
 			}
 
