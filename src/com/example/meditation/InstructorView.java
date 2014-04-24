@@ -94,12 +94,12 @@ public class InstructorView extends View {
 		                	}
 		                }
 
-		                for (int i = 0; i < builtinQuestions.size(); i++) {
-		                	String text = builtinQuestions.get(i);
-		                	builtinQuestions.set(i, text + " - " + map.get(text));
+		                ArrayList<BuiltinQuestion> builtinsWithCounts = new ArrayList<BuiltinQuestion>();
+		                for (String text : builtinQuestions) {
+		                	builtinsWithCounts.add(new BuiltinQuestion(text, map.get(text)));
 		                }
 		                
-                		((InstructorActivity) getContext()).addQuestions(customQuestions, builtinQuestions);
+                		((InstructorActivity) getContext()).addQuestions(customQuestions, builtinsWithCounts);
                 		map.clear();
 
 		                //Log.e("Activity", "Still running with " + counter + " questions pulled");
