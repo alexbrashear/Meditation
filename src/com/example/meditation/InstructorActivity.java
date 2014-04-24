@@ -24,7 +24,7 @@ public class InstructorActivity extends Activity {
 		mView = aView;
 	}
 	
-	public void quitApp(View v) {
+	public void clearQuestions(View v) {
 		mView.resetCutoff();
 	}
 
