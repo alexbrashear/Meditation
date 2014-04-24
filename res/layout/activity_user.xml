@@ -2,46 +2,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background = "@drawable/texture" >
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:textColor="#000"
+        android:typeface="monospace"
+        android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
-        android:text="Click on the following questions to send them to the instructor:" />
+        android:paddingTop="20dip"
+        android:paddingBottom="20dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:text="@string/question_header" />
 
     <Button
-        android:id="@+id/pain_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="I am experiencing a pain when I do this."
-        android:onClick="sendToInstructor"/>
-
-    <Button
-        android:id="@+id/slow_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Can you please slow down a little?"
-        android:onClick="sendToInstructor"/>
-
-    <Button
-        android:id="@+id/repeat_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="We have already talked about this last week." 
-        android:onClick="sendToInstructor"/>
-
-    <EditText
-        android:id="@+id/custom_q"
+        android:id="@+id/q1_button"
+        android:typeface="sans"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" />
+        android:text="@string/question_1"
+        android:onClick="sendToInstructor"/>
 
     <Button
-        android:id="@+id/custom_button"
-        android:layout_width="wrap_content"
+        android:id="@+id/q2_button"
+        android:typeface="sans"
+        android:gravity="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send To Instructor" 
-        android:onClick="sendCustomQToInstructor"/>
+        android:text="@string/question_2"
+        android:onClick="sendToInstructor"/>
+
+    <Button
+        android:id="@+id/q3_button"
+        android:typeface="sans"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/question_3" 
+        android:onClick="sendToInstructor"/>
+    
+    <Button
+        android:id="@+id/q4_button"
+        android:typeface="sans"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/question_4" 
+        android:onClick="sendToInstructor"/>
+    
+    <Button
+        android:id="@+id/q5_button"
+        android:typeface="sans"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/question_5" 
+        android:onClick="sendToInstructor"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="35dip">
+	    <EditText
+	        android:id="@+id/custom_q"
+	        android:gravity="center"
+	        android:hint="@string/custom_hint"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="10" />
+	
+	    <Button
+	        android:id="@+id/custom_button"
+	        android:typeface="sans"
+	        android:layout_gravity="center"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/send_custom" 
+	        android:onClick="sendCustomQToInstructor"/>
+    </LinearLayout>
+	    
 
 </LinearLayout>

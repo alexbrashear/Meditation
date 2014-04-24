@@ -5,5 +5,23 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="app_title">Virtual Meditation</string>
+    <string name="end_text">You have completed this session!</string>
+    <string name="question_header">Click a question below to notify the instructor.</string>
+    <string name="question_1">I am experiencing discomfort.</string>
+    <string name="question_2">Can you please slow down a little?</string>
+    <string name="question_3">I feel like we\'re moving too slowly.</string>
+    <string name="question_4">I\'m confused.</string>
+    <string name="question_5">We have already covered this.</string>
+    <string name="send_custom">Submit question</string>
+    <string name="clear">Clear</string>
+    <string name="begin_call">Begin call</string>
+    <string name="exit">Exit</string>
+    <string name="custom_hint">Ask your own question</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="welcome_text">Welcome to Virtual Meditation!\n\n
+        When you are ready, click below to join the current session.</string>
+    
 
 </resources>
