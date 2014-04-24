@@ -20,6 +20,8 @@
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
+    <string name="preset_header">Participant feedback</string>
+    <string name="custom_header">Participant questions</string>
     <string name="welcome_text">Welcome to Virtual Meditation!\n\n
         When you are ready, click below to join the current session.</string>
     
