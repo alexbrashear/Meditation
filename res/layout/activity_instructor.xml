@@ -47,10 +47,4 @@
         android:layout_height="wrap_content"
         android:textColor="#000"
         android:textSize="40px" />
-
-    <com.example.meditation.InstructorView
-        android:id="@+id/instructorView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>
