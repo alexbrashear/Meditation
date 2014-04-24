@@ -1,8 +1,20 @@
 package com.example.meditation;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,13 +26,23 @@ import android.widget.TextView;
 // Allows the instructor to clear questions.
 public class InstructorActivity extends Activity {
 	public static Activity ia;
-	private InstructorView mView;
+	private Date questionCutoffTime;
+	private TreeMap<String, Integer> map;
+	private Date sessionStart;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ia = this;
         setContentView(R.layout.activity_instructor);
+        
+		// Don't look at questions before this session.
+		clearQuestions(null);
+		sessionStart = new Date();
+		map = new TreeMap<String, Integer>();
+		
+		// Tell our activity about this view.
+		new QuestionThread().execute();
 	}
 	
 	// Display the questions pulled from the server
@@ -31,19 +53,91 @@ public class InstructorActivity extends Activity {
 		
 	}
 	
-	// Register a view.
-	public void setView(InstructorView aView) {
-		mView = aView;
-	}
-	
-	// Get the TextView that contains the elapsed refresh time.
-	public TextView getTimeSince() {
-		return (TextView) findViewById(R.id.time_since);
-	}
-	
 	// Reset the timestamp on the view when the user presses the button.
 	public void clearQuestions(View v) {
-		mView.resetCutoff();
+		questionCutoffTime = new Date();
+	}
+	
+	class QuestionThread extends AsyncTask<Void, Void, Void> {
+		
+		/**
+		 * Sleeps for a certain amount of time before calling onPostExecute
+		 */
+		protected Void doInBackground(Void... params) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) { }
+			return null;
+		}
+		
+		protected void onPostExecute(Void v) {
+			
+			// Grab the questions from Parse
+			ParseQuery<ParseObject> query = ParseQuery.getQuery("Question");
+		    query.findInBackground(new FindCallback<ParseObject>() {
+
+		        @Override
+		        public void done(List<ParseObject> questions, ParseException e) {
+		            if (e == null) {
+		            	ArrayList<String> customQuestions = new ArrayList<String>();
+		            	TreeSet<String> builtinQuestions = new TreeSet<String>();
+		            	
+		            	// Iterate the questions, applying the cutoff
+		                for (ParseObject question : questions) {
+		                	Date cutoff;
+		                	Collection<String> toAddTo = null;
+		                	if (question.getBoolean("custom")) {
+	                			toAddTo = customQuestions;
+	                			cutoff = sessionStart;
+	                		} else {
+	                			toAddTo = builtinQuestions;
+	                			cutoff = questionCutoffTime;
+	                			BuiltinQuestion.totalCount++;
+	                		}
+		                	if (question.getCreatedAt().after(cutoff)) {
+		                		if (question.get("text") != null) {
+		                			String text = question.get("text").toString();
+		                			
+		                			// Count how many times the builtin questions appear.
+			                		if (map.containsKey(text)) {
+			                			map.put(text, map.get(text) + 1);
+			                		} else {
+			                			map.put(text, 1);
+			                		}
+		                			toAddTo.add(text);
+		                		}
+		                	}
+		                }
+
+		                // Collate the questions with the counts
+		                ArrayList<BuiltinQuestion> builtinsWithCounts = new ArrayList<BuiltinQuestion>();
+		                for (String text : builtinQuestions) {
+		                	builtinsWithCounts.add(new BuiltinQuestion(text, map.get(text)));
+		                }
+		                
+		                // Reverse custom questions to make the newest ones appear at the top
+		                Collections.reverse(customQuestions);
+		                
+                		addQuestions(customQuestions, builtinsWithCounts);
+                		map.clear();
+                		BuiltinQuestion.totalCount = 0;
+
+		                //Log.e("Activity", "Still running with " + counter + " questions pulled");
+		            } else {
+		                //Log.e("Brand", "Error: " + e.getMessage());
+		            }
+					
+					Log.e("Activity", "This is executing!");
+		        }
+		    });
+			Date timeSince = new Date(System.currentTimeMillis() - questionCutoffTime.getTime());
+			String timeText = String.format("%02d",timeSince.getMinutes()) + 
+					":" + String.format("%02d",timeSince.getSeconds()) +
+					" since last refresh.";
+			((TextView) findViewById(R.id.time_since)).setText(timeText);
+			new QuestionThread().execute();
+		}
+		
 	}
 
 }
