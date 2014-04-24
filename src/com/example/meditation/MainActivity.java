@@ -22,9 +22,6 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Parse.initialize(this, "E6UyOjr7jeVe9BJCO1WdCU96os1j5vHw8YnSFUXG", "V5ySNKCxjCwY8C24agPPmA23p65QRIceRc8GKlho");
-
-		
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         
@@ -71,6 +68,8 @@ public class MainActivity extends Activity {
                         });
             }
         });	
+        
+        Parse.initialize(this, "E6UyOjr7jeVe9BJCO1WdCU96os1j5vHw8YnSFUXG", "V5ySNKCxjCwY8C24agPPmA23p65QRIceRc8GKlho");
 	}
 
 }
