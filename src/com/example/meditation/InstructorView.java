@@ -1,5 +1,6 @@
 package com.example.meditation;
 
+import java.util.Date;
 import java.util.List;
 
 import com.parse.FindCallback;
@@ -16,6 +17,8 @@ import android.view.View;
 
 public class InstructorView extends View {
 
+	private Date questionCutoffTime;
+	
 	public InstructorView(Context context) {
 		super(context);
 		init();
@@ -27,7 +30,13 @@ public class InstructorView extends View {
 	}
 	
 	private void init() {
+		resetCutoff();
+		((InstructorActivity) getContext()).setView(this);
 		new QuestionThread().execute();
+	}
+	
+	public void resetCutoff() {
+		questionCutoffTime = new Date();
 	}
 
 	public void onDraw(Canvas c) {
@@ -59,11 +68,14 @@ public class InstructorView extends View {
 		            	StringBuilder q = new StringBuilder();
 		            	int counter = 0;
 		                for (ParseObject question : questions) {
-			                q.append(question.get("text"));
-			                q.append("\n");
-			                counter++;
+			                
+		                	if (question.getCreatedAt().after(questionCutoffTime)) {
+				                q.append(question.get("text"));
+				                q.append("\n");
+				                counter++;
+		                	}
 		                }
-		                Log.e("Activity", "Still running with " + counter + " questions pulled");
+		                //Log.e("Activity", "Still running with " + counter + " questions pulled");
 		                ((InstructorActivity) getContext()).getQuestions().setText(q.toString());
 		            } else {
 		                //Log.e("Brand", "Error: " + e.getMessage());

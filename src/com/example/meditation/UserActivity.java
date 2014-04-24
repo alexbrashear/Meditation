@@ -23,12 +23,9 @@ public class UserActivity extends Activity {
 
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
-		custom_q = (EditText) findViewById(R.id.custom_q);
 		if (event.getAction() == KeyEvent.ACTION_DOWN && 
 				event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-			sendQuestion(custom_q.getText().toString());
-			Toast.makeText(UserActivity.this, custom_q.getText(), Toast.LENGTH_LONG).show();
-			custom_q.setText("");
+			sendCustomQToInstructor(null);
 		}
 		
 		return super.dispatchKeyEvent(event);
@@ -36,20 +33,21 @@ public class UserActivity extends Activity {
 	
 	public void sendToInstructor (View v) {
 		Button b = (Button) v;
-		sendQuestion(b.getText().toString());
+		sendQuestion(b.getText().toString(), false);
 		Toast.makeText(UserActivity.this, "Question sent", Toast.LENGTH_LONG).show();
 	}
 	
 	public void sendCustomQToInstructor (View view) {
 		custom_q = (EditText) findViewById(R.id.custom_q);
-		sendQuestion(custom_q.getText().toString());
+		sendQuestion(custom_q.getText().toString(), true);
 		Toast.makeText(UserActivity.this, custom_q.getText(), Toast.LENGTH_LONG).show();
 		custom_q.setText("");			
 	}
 	
-	public void sendQuestion(String text) {
+	public void sendQuestion(String text, Boolean custom) {
 		Log.e("question: ", text);
 		ParseObject q = new ParseObject("Question");
+		q.add("custom", custom);
 		q.add("text", text);
 		q.saveInBackground();
 	}
