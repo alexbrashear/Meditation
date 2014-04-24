@@ -1,8 +1,9 @@
 package com.example.meditation;
 
 public class BuiltinQuestion {
-	String question;
-	int count;
+	private String question;
+	private int count;
+	public static int totalCount;
 	
 	public BuiltinQuestion(String question, int count) {
 		this.question = question;
@@ -10,6 +11,6 @@ public class BuiltinQuestion {
 	}
 	
 	public String toString() {
-		return question + " -- " + count;
+		return question + " -- " + count / (double) totalCount;
 	}
 }
