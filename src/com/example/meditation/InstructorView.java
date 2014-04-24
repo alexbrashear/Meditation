@@ -1,6 +1,7 @@
 package com.example.meditation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.TreeMap;
 import java.util.List;
@@ -47,7 +48,7 @@ public class InstructorView extends View {
 	}
 
 	public void onDraw(Canvas c) {
-		timeSince = new Date(System.currentTimeMillis() - sessionStart.getTime());
+		timeSince = new Date(System.currentTimeMillis() - questionCutoffTime.getTime());
 		String timeText = timeSince.getMinutes() + ":" + timeSince.getSeconds() +
 				" since last refresh.";
 		((InstructorActivity) getContext()).getTimeSince().setText(timeText);
@@ -79,14 +80,17 @@ public class InstructorView extends View {
 		            	ArrayList<String> builtinQuestions = new ArrayList<String>();
 		            	
 		                for (ParseObject question : questions) {
-		                	if (question.getCreatedAt().after(questionCutoffTime)) {
-		                		ArrayList<String> toAddTo = null;
-		                		if (question.getBoolean("custom")) {
-		                			toAddTo = customQuestions;
-		                		} else {
-		                			toAddTo = builtinQuestions;
-		                			BuiltinQuestion.totalCount++;
-		                		}
+		                	Date cutoff;
+		                	ArrayList<String> toAddTo = null;
+		                	if (question.getBoolean("custom")) {
+	                			toAddTo = customQuestions;
+	                			cutoff = sessionStart;
+	                		} else {
+	                			toAddTo = builtinQuestions;
+	                			cutoff = questionCutoffTime;
+	                			BuiltinQuestion.totalCount++;
+	                		}
+		                	if (question.getCreatedAt().after(cutoff)) {
 		                		if (question.get("text") != null) {
 		                			String text = question.get("text").toString();
 			                		if (map.containsKey(text)) {
@@ -103,6 +107,9 @@ public class InstructorView extends View {
 		                for (String text : builtinQuestions) {
 		                	builtinsWithCounts.add(new BuiltinQuestion(text, map.get(text)));
 		                }
+		                
+		                // Reverse custom questions to make the newest ones appear at the top
+		                Collections.reverse(customQuestions);
 		                
                 		((InstructorActivity) getContext()).addQuestions(customQuestions, builtinsWithCounts);
                 		map.clear();
