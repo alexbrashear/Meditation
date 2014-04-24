@@ -21,6 +21,7 @@ public class InstructorView extends View {
 
 	private Date questionCutoffTime;
 	private Map<String, Integer> map = new HashMap<String, Integer>();
+	private Date sessionStart;
 	
 	public InstructorView(Context context) {
 		super(context);
@@ -34,6 +35,7 @@ public class InstructorView extends View {
 	
 	private void init() {
 		resetCutoff();
+		sessionStart = new Date();
 		((InstructorActivity) getContext()).setView(this);
 		new QuestionThread().execute();
 	}
