@@ -81,6 +81,7 @@ public class InstructorView extends View {
 		                			toAddTo = customQuestions;
 		                		} else {
 		                			toAddTo = builtinQuestions;
+		                			BuiltinQuestion.totalCount++;
 		                		}
 		                		if (question.get("text") != null) {
 		                			String text = question.get("text").toString();
@@ -101,6 +102,7 @@ public class InstructorView extends View {
 		                
                 		((InstructorActivity) getContext()).addQuestions(customQuestions, builtinsWithCounts);
                 		map.clear();
+                		BuiltinQuestion.totalCount = 0;
 
 		                //Log.e("Activity", "Still running with " + counter + " questions pulled");
 		            } else {
