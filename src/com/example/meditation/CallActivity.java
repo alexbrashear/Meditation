@@ -99,9 +99,9 @@ public class CallActivity extends Activity {
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
 				ParseUser user = ParseUser.getCurrentUser();
 				if (user.getBoolean("Instructor")) {
-					phoneCallIntent.setData(Uri.parse("tel:7124321212,,716176623#,,*,,1603#"));
+					phoneCallIntent.setData(Uri.parse("tel:8477089465"));
 				} else {
-					phoneCallIntent.setData(Uri.parse("tel:7124321212,,716176623#,,"));
+					phoneCallIntent.setData(Uri.parse("tel:8477089465"));
 				}
 				startActivity(phoneCallIntent);
 			}
