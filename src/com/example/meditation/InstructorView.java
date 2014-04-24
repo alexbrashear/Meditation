@@ -18,6 +18,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+// The view for the instructor.
+// We need this to draw to the canvas and poll Parse for questions.
 public class InstructorView extends View {
 
 	private Date questionCutoffTime;
@@ -36,9 +38,13 @@ public class InstructorView extends View {
 	}
 	
 	private void init() {
+		
+		// Don't look at questions before this session.
 		resetCutoff();
 		sessionStart = new Date();
 		map = new TreeMap<String, Integer>();
+		
+		// Tell our activity about this view.
 		((InstructorActivity) getContext()).setView(this);
 		new QuestionThread().execute();
 	}
@@ -69,17 +75,17 @@ public class InstructorView extends View {
 		
 		protected void onPostExecute(Void v) {
 			
+			// Grab the questions from Parse
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Question");
-
 		    query.findInBackground(new FindCallback<ParseObject>() {
 
 		        @Override
-		        public void done(List<ParseObject> questions,
-		                ParseException e) {
+		        public void done(List<ParseObject> questions, ParseException e) {
 		            if (e == null) {
 		            	ArrayList<String> customQuestions = new ArrayList<String>();
 		            	ArrayList<String> builtinQuestions = new ArrayList<String>();
 		            	
+		            	// Iterate the questions, applying the cutoff
 		                for (ParseObject question : questions) {
 		                	Date cutoff;
 		                	ArrayList<String> toAddTo = null;
@@ -94,6 +100,8 @@ public class InstructorView extends View {
 		                	if (question.getCreatedAt().after(cutoff)) {
 		                		if (question.get("text") != null) {
 		                			String text = question.get("text").toString();
+		                			
+		                			// Count how many times the builtin questions appear.
 			                		if (map.containsKey(text)) {
 			                			map.put(text, map.get(text) + 1);
 			                		} else {
@@ -104,6 +112,7 @@ public class InstructorView extends View {
 		                	}
 		                }
 
+		                // Collate the questions with the counts
 		                ArrayList<BuiltinQuestion> builtinsWithCounts = new ArrayList<BuiltinQuestion>();
 		                for (String text : builtinQuestions) {
 		                	builtinsWithCounts.add(new BuiltinQuestion(text, map.get(text)));

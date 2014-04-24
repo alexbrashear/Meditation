@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,76 +16,55 @@ import android.widget.Toast;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
+// The next screen the user sees - it gives the user the option to call the class.
 public class CallActivity extends Activity {
-
-	private Activity self;
 	
 	// monitor phone call states
 	private class PhoneCallListener extends PhoneStateListener {
 
-			String TAG = "LOGGING PHONE CALL";
+		private boolean phoneCalling = false;
 
-			private boolean phoneCalling = false;
+		@Override
+		public void onCallStateChanged(int state, String incomingNumber) {
 
-			@Override
-			public void onCallStateChanged(int state, String incomingNumber) {
-
-				if (TelephonyManager.CALL_STATE_RINGING == state) {
-					// phone ringing
-					Log.i(TAG, "RINGING, number: " + incomingNumber);
-				}
-
-				if (TelephonyManager.CALL_STATE_OFFHOOK == state) {
-					// active
-					Log.i(TAG, "OFFHOOK");
-					ParseUser user = ParseUser.getCurrentUser();
-					if (user != null) {
-						if (!user.getBoolean("Instructor")) {
-							launchUser(UserActivity.class);
-						} else {
-							launchUser(InstructorActivity.class);
-						}
+			if (TelephonyManager.CALL_STATE_OFFHOOK == state) {
+				
+				// Launch the appropriate activity
+				ParseUser user = ParseUser.getCurrentUser();
+				if (user != null) {
+					if (!user.getBoolean("Instructor")) {
+						launchUser(UserActivity.class);
 					} else {
-						Toast toast = Toast.makeText(getApplicationContext(), "Error: not logged in", Toast.LENGTH_SHORT);
-				    	toast.show();
+						launchUser(InstructorActivity.class);
 					}
-					
-					phoneCalling = true;
-					
+				} else {
+					Toast.makeText(getApplicationContext(), "Error: not logged in", Toast.LENGTH_SHORT).show();
 				}
-
-				// When the call ends launch the main activity again
-				if (TelephonyManager.CALL_STATE_IDLE == state) {
-
-					Log.i(TAG, "IDLE");
-
-					if (phoneCalling) {
-
-						Log.i(TAG, "restart app");
-						//exiting user activities
-						if (UserActivity.ua != null) {
-							UserActivity.ua.finish();
-						} else if (InstructorActivity.ia != null){
-							InstructorActivity.ia.finish();
-						}
-						startActivity(new Intent(self, ViewResultsActivity.class));
-						
-						phoneCalling = false;
-					}
-
+				
+				phoneCalling = true;
+				
+			} else if (TelephonyManager.CALL_STATE_IDLE == state && phoneCalling) {
+				// When the call ends launch the main activity again exiting user activities
+				if (UserActivity.ua != null) {
+					UserActivity.ua.finish();
+				} else if (InstructorActivity.ia != null){
+					InstructorActivity.ia.finish();
 				}
+				startActivity(new Intent(CallActivity.this, ViewResultsActivity.class));
+				
+				phoneCalling = false;
 			}
-			
 		}
+    }
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		self = this;
 		setContentView(R.layout.activity_main);				
 		
 		Button button = (Button) findViewById(R.id.button);
 
+		// Set up the phone call listener
 		PhoneCallListener phoneCallListener = new PhoneCallListener();
 		TelephonyManager telManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
 		telManager.listen(phoneCallListener, PhoneStateListener.LISTEN_CALL_STATE);
@@ -98,6 +76,8 @@ public class CallActivity extends Activity {
 			public void onClick(View view) {				
 				Intent phoneCallIntent = new Intent(Intent.ACTION_CALL);
 				ParseUser user = ParseUser.getCurrentUser();
+				
+				// Dial the appropriate conference call number
 				if (user.getBoolean("Instructor")) {
 					phoneCallIntent.setData(Uri.parse("tel:8477089465"));
 				} else {
@@ -122,13 +102,14 @@ public class CallActivity extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (item.getItemId() == R.id.action_settings) {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
+	// Launch the activity for a user with a delay of 1 second.
+	// This gives Android enough time to pull up the dialer.
 	public void launchUser(Class<?> c) {
 		Handler h = new Handler();
 		Runnable r = new MyRunnable(this, c);
