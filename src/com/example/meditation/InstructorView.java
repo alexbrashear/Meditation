@@ -49,7 +49,8 @@ public class InstructorView extends View {
 
 	public void onDraw(Canvas c) {
 		timeSince = new Date(System.currentTimeMillis() - questionCutoffTime.getTime());
-		String timeText = timeSince.getMinutes() + ":" + timeSince.getSeconds() +
+		String timeText = String.format("%02d",timeSince.getMinutes()) + 
+				":" + String.format("%02d",timeSince.getSeconds()) +
 				" since last refresh.";
 		((InstructorActivity) getContext()).getTimeSince().setText(timeText);
 	}
