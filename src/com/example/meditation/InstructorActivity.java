@@ -2,10 +2,12 @@ package com.example.meditation;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class InstructorActivity extends Activity {
 	public static Activity ia;
+	private InstructorView mView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +18,14 @@ public class InstructorActivity extends Activity {
 	
 	public TextView getQuestions() {
 		return (TextView) findViewById(R.id.questions);
+	}
+	
+	public void setView(InstructorView aView) {
+		mView = aView;
+	}
+	
+	public void quitApp(View v) {
+		mView.resetCutoff();
 	}
 
 }
