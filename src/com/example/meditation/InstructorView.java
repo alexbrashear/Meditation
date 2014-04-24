@@ -109,11 +109,11 @@ public class InstructorView extends View {
 		                //Log.e("Brand", "Error: " + e.getMessage());
 		            }
 					
-					invalidate();
 					Log.e("Activity", "This is executing!");
-					new QuestionThread().execute();
+					invalidate();
 		        }
 		    });
+			new QuestionThread().execute();
 		}
 		
 	}
