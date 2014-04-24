@@ -22,9 +22,6 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Parse.initialize(this, "E6UyOjr7jeVe9BJCO1WdCU96os1j5vHw8YnSFUXG", "V5ySNKCxjCwY8C24agPPmA23p65QRIceRc8GKlho");
-
-		
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         
@@ -56,10 +53,7 @@ public class MainActivity extends Activity {
                                             MainActivity.this,
                                             CallActivity.class);
                                     startActivity(intent);
-                                    boolean temp = user.getBoolean("Instructor");
-                                    String text;
-                                    if (temp) {text = "instructor";}
-                                    else      {text = "participant";}
+                                    String text =  user.getBoolean("Instructor") ? "instructor" : "participant";
                                     Toast.makeText(getApplicationContext(),
                                             "Successfully logged in as " + text,
                                             Toast.LENGTH_LONG).show();
@@ -67,13 +61,15 @@ public class MainActivity extends Activity {
                                 } else {
                                     Toast.makeText(
                                             getApplicationContext(),
-                                            "No such user exist, please signup",
+                                            "No such user exists, please signup",
                                             Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
             }
         });	
+        
+        Parse.initialize(this, "E6UyOjr7jeVe9BJCO1WdCU96os1j5vHw8YnSFUXG", "V5ySNKCxjCwY8C24agPPmA23p65QRIceRc8GKlho");
 	}
 
 }

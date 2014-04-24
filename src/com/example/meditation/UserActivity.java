@@ -47,8 +47,8 @@ public class UserActivity extends Activity {
 	public void sendQuestion(String text, Boolean custom) {
 		Log.e("question: ", text);
 		ParseObject q = new ParseObject("Question");
-		q.add("custom", custom);
-		q.add("text", text);
+		q.put("custom", custom);
+		q.put("text", text);
 		q.saveInBackground();
 	}
 	
