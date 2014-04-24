@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
+// The next screen the user sees - it gives the user the option to call the class.
 public class CallActivity extends Activity {
 	
 	// monitor phone call states
