@@ -1,10 +1,12 @@
 package com.example.meditation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.TreeMap;
 import java.util.List;
+import java.util.TreeSet;
 
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -82,12 +84,12 @@ public class InstructorView extends View {
 		        public void done(List<ParseObject> questions, ParseException e) {
 		            if (e == null) {
 		            	ArrayList<String> customQuestions = new ArrayList<String>();
-		            	ArrayList<String> builtinQuestions = new ArrayList<String>();
+		            	TreeSet<String> builtinQuestions = new TreeSet<String>();
 		            	
 		            	// Iterate the questions, applying the cutoff
 		                for (ParseObject question : questions) {
 		                	Date cutoff;
-		                	ArrayList<String> toAddTo = null;
+		                	Collection<String> toAddTo = null;
 		                	if (question.getBoolean("custom")) {
 	                			toAddTo = customQuestions;
 	                			cutoff = sessionStart;
