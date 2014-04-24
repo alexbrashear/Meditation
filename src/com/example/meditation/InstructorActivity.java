@@ -26,8 +26,9 @@ public class InstructorActivity extends Activity {
 	// Display the questions pulled from the server
 	public void addQuestions(ArrayList<String> customQuestions, ArrayList<BuiltinQuestion> builtinQuestions) {
 		Log.e(customQuestions.size() + "", builtinQuestions.size() + "");
-		((ListView)this.findViewById(R.id.customQuestions)).setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, customQuestions));
-		((ListView)this.findViewById(R.id.builtinQuestions)).setAdapter(new ArrayAdapter<BuiltinQuestion>(this, android.R.layout.simple_list_item_1, builtinQuestions));
+		((ListView)this.findViewById(R.id.builtinQuestions)).setAdapter(new CustomAdapterBQ(this,builtinQuestions));
+		((ListView)this.findViewById(R.id.customQuestions)).setAdapter(new ArrayAdapter<String>(this, R.layout.custom_list_layout, customQuestions));
+		
 	}
 	
 	// Register a view.
