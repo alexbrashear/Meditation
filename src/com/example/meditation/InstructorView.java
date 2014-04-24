@@ -1,9 +1,9 @@
 package com.example.meditation;
 
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.List;
-import java.util.Map;
 
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -20,7 +20,7 @@ import android.view.View;
 public class InstructorView extends View {
 
 	private Date questionCutoffTime;
-	private Map<String, Integer> map = new HashMap<String, Integer>();
+	private TreeMap<String, Integer> map = new TreeMap<String, Integer>();
 	private Date sessionStart;
 	
 	public InstructorView(Context context) {
@@ -87,7 +87,7 @@ public class InstructorView extends View {
 		                }
 		                Log.e("Activity", "Still running with " + counter + " questions pulled");
 		                StringBuilder q = new StringBuilder();
-		                for (String s : map.keySet()) {
+		                for (String s : map.descendingKeySet()) {
 		                	q.append(s);
 		                	q.append(": ");
 		                	q.append(map.get(s).toString());
