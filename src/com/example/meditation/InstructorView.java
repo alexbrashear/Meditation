@@ -18,6 +18,7 @@ import android.view.View;
 public class InstructorView extends View {
 
 	private Date questionCutoffTime;
+	private Date sessionStart;
 	
 	public InstructorView(Context context) {
 		super(context);
@@ -31,6 +32,7 @@ public class InstructorView extends View {
 	
 	private void init() {
 		resetCutoff();
+		sessionStart = new Date();
 		((InstructorActivity) getContext()).setView(this);
 		new QuestionThread().execute();
 	}
