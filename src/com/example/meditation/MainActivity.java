@@ -23,14 +23,15 @@ public class MainActivity extends Activity {
         setContentView(R.layout.login);
         
         // Grab the username/password
-        final String username = ((EditText)findViewById(R.id.username)).getText().toString();
-        final String password = ((EditText)findViewById(R.id.password)).getText().toString();
+        final EditText username = (EditText)findViewById(R.id.username);
+        final EditText password = (EditText)findViewById(R.id.password);
         
         // Handle the login click
         ((Button)findViewById(R.id.submitbutton)).setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
                 // Send data to Parse.com for verification
-                ParseUser.logInInBackground(username, password,
+                ParseUser.logInInBackground(username.getText().toString(),
+                		                    password.getText().toString(),
                     new LogInCallback() {
                         public void done(ParseUser user, ParseException e) {
                             if (user != null) {
