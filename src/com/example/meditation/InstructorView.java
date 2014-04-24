@@ -1,7 +1,9 @@
 package com.example.meditation;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -18,6 +20,7 @@ import android.view.View;
 public class InstructorView extends View {
 
 	private Date questionCutoffTime;
+	private Map<String, Integer> map = new HashMap<String, Integer>();
 	
 	public InstructorView(Context context) {
 		super(context);
@@ -65,18 +68,31 @@ public class InstructorView extends View {
 		        public void done(List<ParseObject> questions,
 		                ParseException e) {
 		            if (e == null) {
-		            	StringBuilder q = new StringBuilder();
 		            	int counter = 0;
 		                for (ParseObject question : questions) {
 			                
 		                	if (question.getCreatedAt().after(questionCutoffTime)) {
-				                q.append(question.get("text"));
-				                q.append("\n");
+				                //q.append(question.get("text"));
+				                //q.append("\n");
+		                		String ques = (String) question.get("text");
+		                		if (map.containsKey(ques)) {
+		                			map.put(ques, map.get(ques) + 1);
+		                		} else {
+		                			map.put(ques, 1);
+		                		}
 				                counter++;
 		                	}
 		                }
-		                //Log.e("Activity", "Still running with " + counter + " questions pulled");
+		                Log.e("Activity", "Still running with " + counter + " questions pulled");
+		                StringBuilder q = new StringBuilder();
+		                for (String s : map.keySet()) {
+		                	q.append(s);
+		                	q.append(": ");
+		                	q.append(map.get(s).toString());
+		                	q.append("\n");
+		                }
 		                ((InstructorActivity) getContext()).getQuestions().setText(q.toString());
+		                map.clear();
 		            } else {
 		                //Log.e("Brand", "Error: " + e.getMessage());
 		            }
