@@ -22,6 +22,7 @@ public class InstructorView extends View {
 	private Date questionCutoffTime;
 	private TreeMap<String, Integer> map;
 	private Date sessionStart;
+	private Date timeSince;
 	
 	public InstructorView(Context context) {
 		super(context);
@@ -46,7 +47,10 @@ public class InstructorView extends View {
 	}
 
 	public void onDraw(Canvas c) {
-		
+		timeSince = new Date(System.currentTimeMillis() - sessionStart.getTime());
+		String timeText = timeSince.getMinutes() + ":" + timeSince.getSeconds() +
+				" since last refresh.";
+		((InstructorActivity) getContext()).getTimeSince().setText(timeText);
 	}
 	
 	class QuestionThread extends AsyncTask<Void, Void, Void> {
