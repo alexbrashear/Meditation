@@ -135,6 +135,7 @@ public class CallActivity extends Activity {
 		h.postDelayed(r, 1000);
 		
 	}
+	
 	private class MyRunnable implements Runnable {
 		private Activity activity;
 		private Class<?> c;

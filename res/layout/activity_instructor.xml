@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <Button
         android:id="@+id/clearButton"
@@ -10,13 +10,17 @@
         android:text="Clear"
         android:onClick="clearQuestions"/>
 
-    <TextView
-        android:id="@+id/questions"
+    <ListView
+        android:id="@+id/builtinQuestions"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:ems="10" >
+        android:layout_height="203dp" >
+    </ListView>
 
-    </TextView>
+    <ListView
+        android:id="@+id/customQuestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
 
     <com.example.meditation.InstructorView
         android:id="@+id/instructorView"

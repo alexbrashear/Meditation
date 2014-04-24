@@ -1,6 +1,6 @@
 package com.example.meditation;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 import java.util.List;
@@ -20,7 +20,7 @@ import android.view.View;
 public class InstructorView extends View {
 
 	private Date questionCutoffTime;
-	private TreeMap<String, Integer> map = new TreeMap<String, Integer>();
+	private TreeMap<String, Integer> map;
 	private Date sessionStart;
 	
 	public InstructorView(Context context) {
@@ -36,6 +36,7 @@ public class InstructorView extends View {
 	private void init() {
 		resetCutoff();
 		sessionStart = new Date();
+		map = new TreeMap<String, Integer>();
 		((InstructorActivity) getContext()).setView(this);
 		new QuestionThread().execute();
 	}
@@ -70,31 +71,38 @@ public class InstructorView extends View {
 		        public void done(List<ParseObject> questions,
 		                ParseException e) {
 		            if (e == null) {
-		            	int counter = 0;
+		            	ArrayList<String> customQuestions = new ArrayList<String>();
+		            	ArrayList<String> builtinQuestions = new ArrayList<String>();
+		            	
 		                for (ParseObject question : questions) {
-			                
 		                	if (question.getCreatedAt().after(questionCutoffTime)) {
-				                //q.append(question.get("text"));
-				                //q.append("\n");
-		                		String ques = (String) question.get("text");
-		                		if (map.containsKey(ques)) {
-		                			map.put(ques, map.get(ques) + 1);
+		                		ArrayList<String> toAddTo = null;
+		                		if (question.getBoolean("custom")) {
+		                			toAddTo = customQuestions;
 		                		} else {
-		                			map.put(ques, 1);
+		                			toAddTo = builtinQuestions;
 		                		}
-				                counter++;
+		                		if (question.get("text") != null) {
+		                			String text = question.get("text").toString();
+			                		if (map.containsKey(text)) {
+			                			map.put(text, map.get(text) + 1);
+			                		} else {
+			                			map.put(text, 1);
+			                		}
+		                			toAddTo.add(text);
+		                		}
 		                	}
 		                }
-		                Log.e("Activity", "Still running with " + counter + " questions pulled");
-		                StringBuilder q = new StringBuilder();
-		                for (String s : map.descendingKeySet()) {
-		                	q.append(s);
-		                	q.append(": ");
-		                	q.append(map.get(s).toString());
-		                	q.append("\n");
+
+		                for (int i = 0; i < builtinQuestions.size(); i++) {
+		                	String text = builtinQuestions.get(i);
+		                	builtinQuestions.set(i, text + " - " + map.get(text));
 		                }
-		                ((InstructorActivity) getContext()).getQuestions().setText(q.toString());
-		                map.clear();
+		                
+                		((InstructorActivity) getContext()).addQuestions(customQuestions, builtinQuestions);
+                		map.clear();
+
+		                //Log.e("Activity", "Still running with " + counter + " questions pulled");
 		            } else {
 		                //Log.e("Brand", "Error: " + e.getMessage());
 		            }
