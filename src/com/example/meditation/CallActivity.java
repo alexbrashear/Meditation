@@ -78,11 +78,12 @@ public class CallActivity extends Activity {
 				ParseUser user = ParseUser.getCurrentUser();
 				
 				// Dial the appropriate conference call number
+				String number = "7124321212,,716176623#";
 				if (user.getBoolean("Instructor")) {
-					phoneCallIntent.setData(Uri.parse("tel:8477089465"));
-				} else {
-					phoneCallIntent.setData(Uri.parse("tel:8477089465"));
+					// 8477089465
+					number += "*1603,,,,,,*5";
 				}
+				phoneCallIntent.setData(Uri.parse(String.format("tel:%s", Uri.encode(number))));
 				startActivity(phoneCallIntent);
 			}
 
