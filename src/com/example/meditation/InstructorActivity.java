@@ -16,7 +16,6 @@ import com.parse.ParseQuery;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
@@ -30,24 +29,23 @@ public class InstructorActivity extends Activity {
 	private TreeMap<String, Integer> map;
 	private Date sessionStart;
 	protected boolean endOfCall;
-	private boolean executeBackground = true;
+	private boolean executeBackground;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ia = this;
+		executeBackground = true;
         
 		// Don't look at questions before this session.
 		clearQuestions(null);
-		Log.e("InstructorActivity", "Is end of call? " + endOfCall);
 		Bundle bundle = getIntent().getExtras();
-		if (bundle != null && endOfCall) {
-			if (bundle.get("START_TIME") != null) {
-				sessionStart = (Date) bundle.get("START_TIME");
-			}
+		if (endOfCall && bundle != null && bundle.get("START_TIME") != null) {
+			sessionStart = (Date) bundle.get("START_TIME");
 		} else {
 			sessionStart = new Date();
 		}
+		
 		map = new TreeMap<String, Integer>();
     
 		new QuestionThread().execute();
