@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +36,7 @@ public class CallActivity extends Activity {
 					if (!user.getBoolean("Instructor")) {
 						launchUser(UserActivity.class);
 					} else {
-						launchUser(InstructorActivity.class);
+						launchUser(InstructorCallActivity.class);
 					}
 				} else {
 					Toast.makeText(getApplicationContext(), "Error: not logged in", Toast.LENGTH_SHORT).show();
@@ -44,14 +45,21 @@ public class CallActivity extends Activity {
 				phoneCalling = true;
 				
 			} else if (TelephonyManager.CALL_STATE_IDLE == state && phoneCalling) {
-				// When the call ends launch the main activity again exiting user activities
+				Log.e("CallActivity","Phone call ends here");
+				// When the call ends launch the end of call activity, exiting user activities
 				if (UserActivity.ua != null) {
 					UserActivity.ua.finish();
+					startActivity(new Intent(CallActivity.this, UserEndActivity.class));
 				} else if (InstructorActivity.ia != null){
+					Log.e("CallActivity","InstructorCallActivity is ending");
+					Intent i = new Intent(CallActivity.this, InstructorEndActivity.class);
+					i.putExtra("START_TIME", InstructorActivity.ia.getSessionStart());
+					InstructorActivity.ia.stopBackground();
 					InstructorActivity.ia.finish();
+					startActivity(i);
+					
 				}
-				startActivity(new Intent(CallActivity.this, ViewResultsActivity.class));
-				
+								
 				phoneCalling = false;
 			}
 		}
