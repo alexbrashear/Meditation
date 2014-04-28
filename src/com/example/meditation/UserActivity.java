@@ -3,7 +3,6 @@ package com.example.meditation;
 import com.parse.ParseObject;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +49,6 @@ public class UserActivity extends Activity {
 	
 	// Helper to send a question.
 	public void sendQuestion(String text, Boolean custom) {
-		Log.e("question: ", text);
 		ParseObject q = new ParseObject("Question");
 		q.put("custom", custom);
 		q.put("text", text);

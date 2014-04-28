@@ -3,7 +3,6 @@ package com.example.meditation;
 public class BuiltinQuestion {
 	private String question;
 	private int count;
-	public static int totalCount;
 	
 	public BuiltinQuestion(String question, int count) {
 		this.question = question;
@@ -18,14 +17,8 @@ public class BuiltinQuestion {
 		return s;
 	}
 	
-	public String toString() {
-//		return question + " -- " + count / (double) totalCount;
-
+	public String toString()
+	{
 		return question;
-		/*for (int i = 0; i < count; i++) {
-			s = s + "+";
-		}
-		return s;*/
-
 	}
 }

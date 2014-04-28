@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,13 +44,11 @@ public class CallActivity extends Activity {
 				phoneCalling = true;
 				
 			} else if (TelephonyManager.CALL_STATE_IDLE == state && phoneCalling) {
-				Log.e("CallActivity","Phone call ends here");
 				// When the call ends launch the end of call activity, exiting user activities
 				if (UserActivity.ua != null) {
 					UserActivity.ua.finish();
 					startActivity(new Intent(CallActivity.this, UserEndActivity.class));
 				} else if (InstructorActivity.ia != null){
-					Log.e("CallActivity","InstructorCallActivity is ending");
 					Intent i = new Intent(CallActivity.this, InstructorEndActivity.class);
 					i.putExtra("START_TIME", InstructorActivity.ia.getSessionStart());
 					InstructorActivity.ia.stopBackground();
