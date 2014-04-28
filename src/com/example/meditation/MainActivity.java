@@ -7,6 +7,7 @@ import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,9 +58,16 @@ public class MainActivity extends Activity {
             }
         });	
         
-        // Open a connection to Parse
-        Parse.initialize(this, "E6UyOjr7jeVe9BJCO1WdCU96os1j5vHw8YnSFUXG", 
-        		"V5ySNKCxjCwY8C24agPPmA23p65QRIceRc8GKlho");
+        new InitThread().execute();
 	}
-
+        
+	class InitThread extends AsyncTask<Void, Void, Void> {
+		
+		protected Void doInBackground(Void... params) {
+	        // Open a connection to Parse
+	        Parse.initialize(MainActivity.this, "E6UyOjr7jeVe9BJCO1WdCU96os1j5vHw8YnSFUXG", 
+	        		"V5ySNKCxjCwY8C24agPPmA23p65QRIceRc8GKlho");
+			return null;
+		}
+	}
 }
