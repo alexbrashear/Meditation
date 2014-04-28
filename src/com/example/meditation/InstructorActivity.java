@@ -29,7 +29,7 @@ public class InstructorActivity extends Activity {
 	private Date questionCutoffTime;
 	private TreeMap<String, Integer> map;
 	private Date sessionStart;
-	private boolean endOfCall;
+	protected boolean endOfCall;
 	private boolean executeBackground = true;
 	
 	@Override
@@ -39,19 +39,17 @@ public class InstructorActivity extends Activity {
         
 		// Don't look at questions before this session.
 		clearQuestions(null);
+		Log.e("InstructorActivity", "Is end of call? " + endOfCall);
 		Bundle bundle = getIntent().getExtras();
-		if (bundle != null && bundle.getBoolean("END_OF_CALL")) {
+		if (bundle != null && endOfCall) {
 			if (bundle.get("START_TIME") != null) {
 				sessionStart = (Date) bundle.get("START_TIME");
 			}
-			endOfCall = true;
 		} else {
 			sessionStart = new Date();
-			endOfCall = false;
 		}
 		map = new TreeMap<String, Integer>();
-		
-		// Tell our activity about this view.
+    
 		new QuestionThread().execute();
 	}
 	
@@ -96,6 +94,7 @@ public class InstructorActivity extends Activity {
 
 		        @Override
 		        public void done(List<ParseObject> questions, ParseException e) {
+		        	
 		            if (e == null) {
 		            	ArrayList<String> customQuestions = new ArrayList<String>();
 		            	TreeSet<String> builtinQuestions = new TreeSet<String>();
@@ -115,8 +114,7 @@ public class InstructorActivity extends Activity {
 	                				cutoff = questionCutoffTime;
 	                			}
 	                			BuiltinQuestion.totalCount++;
-	                			Log.e("InstructorActivity", cutoff.toLocaleString());
-	                			Log.e("InstructorActivity", "We are in InstructorEnd? " + endOfCall);
+	                			
 	                		}
 		                	if (question.getCreatedAt().after(cutoff)) {
 		                		if (question.get("text") != null) {
@@ -160,10 +158,12 @@ public class InstructorActivity extends Activity {
 		    			":" + String.format("%02d",timeSince.getSeconds()) +
 		    			" since last refresh.";
 		    	((TextView) findViewById(R.id.time_since)).setText(timeText);
+		    	
 		    }
-		    if (executeBackground ) {
+		    if (executeBackground) {
 	    		new QuestionThread().execute();
 	    	}
+		    
 		}
 		
 	}
