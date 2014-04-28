@@ -86,7 +86,7 @@ public class CallActivity extends Activity {
 				String number = "7124321212,,716176623#";
 				if (user.getBoolean("Instructor")) {
 					// 8477089465
-					number += "*1603,,,,,,*5";
+					number += "*1603,,,,,,,,*5";
 				}
 				phoneCallIntent.setData(Uri.parse(String.format("tel:%s", Uri.encode(number))));
 				startActivity(phoneCallIntent);
