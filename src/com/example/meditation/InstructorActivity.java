@@ -25,23 +25,31 @@ import android.widget.TextView;
 // The screen for the instructor, which reports the current questions.
 // Allows the instructor to clear questions.
 public class InstructorActivity extends Activity {
-	public static Activity ia;
+	public static InstructorActivity ia;
 	private Date questionCutoffTime;
 	private TreeMap<String, Integer> map;
 	private Date sessionStart;
+	protected boolean endOfCall;
+	private boolean executeBackground = true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ia = this;
-        setContentView(R.layout.activity_instructor);
         
 		// Don't look at questions before this session.
 		clearQuestions(null);
-		sessionStart = new Date();
+		Log.e("InstructorActivity", "Is end of call? " + endOfCall);
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null && endOfCall) {
+			if (bundle.get("START_TIME") != null) {
+				sessionStart = (Date) bundle.get("START_TIME");
+			}
+		} else {
+			sessionStart = new Date();
+		}
 		map = new TreeMap<String, Integer>();
-		
-		// Tell our activity about this view.
+    
 		new QuestionThread().execute();
 	}
 	
@@ -56,6 +64,14 @@ public class InstructorActivity extends Activity {
 	// Reset the timestamp on the view when the user presses the button.
 	public void clearQuestions(View v) {
 		questionCutoffTime = new Date();
+	}
+	
+	public Date getSessionStart() {
+		return sessionStart;
+	}
+	
+	public void stopBackground() {
+		executeBackground = false;
 	}
 	
 	class QuestionThread extends AsyncTask<Void, Void, Void> {
@@ -78,6 +94,7 @@ public class InstructorActivity extends Activity {
 
 		        @Override
 		        public void done(List<ParseObject> questions, ParseException e) {
+		        	
 		            if (e == null) {
 		            	ArrayList<String> customQuestions = new ArrayList<String>();
 		            	TreeSet<String> builtinQuestions = new TreeSet<String>();
@@ -91,8 +108,13 @@ public class InstructorActivity extends Activity {
 	                			cutoff = sessionStart;
 	                		} else {
 	                			toAddTo = builtinQuestions;
-	                			cutoff = questionCutoffTime;
+	                			if (endOfCall) {
+	                				cutoff = sessionStart;
+	                			} else {
+	                				cutoff = questionCutoffTime;
+	                			}
 	                			BuiltinQuestion.totalCount++;
+	                			
 	                		}
 		                	if (question.getCreatedAt().after(cutoff)) {
 		                		if (question.get("text") != null) {
@@ -127,15 +149,21 @@ public class InstructorActivity extends Activity {
 		                //Log.e("Brand", "Error: " + e.getMessage());
 		            }
 					
-					Log.e("Activity", "This is executing!");
+					//Log.e("Activity", "This is executing!");
 		        }
 		    });
-			Date timeSince = new Date(System.currentTimeMillis() - questionCutoffTime.getTime());
-			String timeText = String.format("%02d",timeSince.getMinutes()) + 
-					":" + String.format("%02d",timeSince.getSeconds()) +
-					" since last refresh.";
-			((TextView) findViewById(R.id.time_since)).setText(timeText);
-			new QuestionThread().execute();
+		    if (!endOfCall) {
+		    	Date timeSince = new Date(System.currentTimeMillis() - questionCutoffTime.getTime());
+		    	String timeText = String.format("%02d",timeSince.getMinutes()) + 
+		    			":" + String.format("%02d",timeSince.getSeconds()) +
+		    			" since last refresh.";
+		    	((TextView) findViewById(R.id.time_since)).setText(timeText);
+		    	
+		    }
+		    if (executeBackground) {
+	    		new QuestionThread().execute();
+	    	}
+		    
 		}
 		
 	}
