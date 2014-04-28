@@ -32,7 +32,9 @@
         <activity android:name="CallActivity"/>
         <activity android:name="UserActivity" />
         <activity android:name="InstructorActivity" />
-        <activity android:name="ViewResultsActivity" />
+        <activity android:name="InstructorCallActivity" />
+        <activity android:name="InstructorEndActivity" />
+        <activity android:name="UserEndActivity" />
     </application>
 
 </manifest>
