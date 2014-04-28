@@ -55,7 +55,6 @@ public class InstructorActivity extends Activity {
 	
 	// Display the questions pulled from the server
 	public void addQuestions(ArrayList<String> customQuestions, ArrayList<BuiltinQuestion> builtinQuestions) {
-		Log.e(customQuestions.size() + "", builtinQuestions.size() + "");
 		((ListView)this.findViewById(R.id.builtinQuestions)).setAdapter(new CustomAdapterBQ(this,builtinQuestions));
 		((ListView)this.findViewById(R.id.customQuestions)).setAdapter(new ArrayAdapter<String>(this, R.layout.custom_list_layout, customQuestions));
 		
@@ -113,8 +112,6 @@ public class InstructorActivity extends Activity {
 	                			} else {
 	                				cutoff = questionCutoffTime;
 	                			}
-	                			BuiltinQuestion.totalCount++;
-	                			
 	                		}
 		                	if (question.getCreatedAt().after(cutoff)) {
 		                		if (question.get("text") != null) {
@@ -142,16 +139,10 @@ public class InstructorActivity extends Activity {
 		                
                 		addQuestions(customQuestions, builtinsWithCounts);
                 		map.clear();
-                		BuiltinQuestion.totalCount = 0;
-
-		                //Log.e("Activity", "Still running with " + counter + " questions pulled");
-		            } else {
-		                //Log.e("Brand", "Error: " + e.getMessage());
 		            }
-					
-					//Log.e("Activity", "This is executing!");
 		        }
 		    });
+		    
 		    if (!endOfCall) {
 		    	Date timeSince = new Date(System.currentTimeMillis() - questionCutoffTime.getTime());
 		    	String timeText = String.format("%02d",timeSince.getMinutes()) + 
