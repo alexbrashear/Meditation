@@ -8,7 +8,7 @@ public class ViewResultsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_results);
+        setContentView(R.layout.user_end);
 	}
 
 }
