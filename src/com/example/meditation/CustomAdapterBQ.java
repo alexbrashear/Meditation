@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+//custom adapter layout for a list of questions and their frequencies
 public class CustomAdapterBQ extends ArrayAdapter<BuiltinQuestion> {
 	private final Context context;
 	private final List<BuiltinQuestion> values;
